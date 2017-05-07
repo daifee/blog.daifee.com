@@ -1,0 +1,187 @@
+body {
+  padding-top: 70px;
+}
+
+.delete {
+  color: #888;
+}
+
+.delete:hover, .delete:active {
+  color: #666;
+}
+
+/**
+ * login & register
+ */
+#login, #register {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+#login h2, #register h2 {
+  text-align: center;
+}
+
+#login input, #register input {
+  margin-bottom: 10px;
+}
+
+#login button, #register button {
+  margin-top: 20px;
+}
+
+
+/**
+ * user-side
+ */
+.user-side img {
+  width: 100%;
+  max-width: 300px;
+}
+
+.user-side h1 {
+  color: #333;
+  font-size: 30px;
+}
+
+.user-side ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #888;
+}
+
+.user-side li {
+  margin-bottom: 4px;
+}
+
+.user-side .glyphicon {
+  margin-right: 4px;
+}
+
+
+/**
+ * article-list
+ */
+.article-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.article-list li {
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #fff;
+  padding: 30px 0 15px 0;
+  position: relative;
+}
+
+.article-list li:first-child {
+  padding-top: 0;
+}
+
+.article-list li>.meta {
+  float: right;
+  color: #888;
+}
+
+.article-list li>.meta a {
+  color: #888;
+}
+
+.article-list li>h3 {
+  margin-top: 0;
+}
+
+.article-list li>h3 a {
+  color: #333;
+}
+
+.article-list .action {
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.article-list .action .self {
+  float: right;
+}
+
+.article-list .action .self a {
+  margin-left: 20px;
+}
+
+
+
+
+/**
+ * article-detail
+ */
+
+ #article-detail {
+   overflow: hidden;
+ }
+
+ #article-detail .content>h1 {
+   margin-top: 0;
+ }
+
+ #article-detail .meta {
+    float: right;
+    color: #888;
+ }
+
+ #article-detail .meta a {
+   color: #888;
+ }
+
+#article-detail .comments {
+  margin-top: 20px;
+}
+
+#article-detail #comments {
+  color: #333;
+  font-size: 20px;
+}
+
+#article-detail .comments>hr {
+  margin-top: 0;
+  border-top-width: 2px;
+}
+
+#article-detail .comments>ul {
+  margin: 0;
+  padding: 0;
+}
+
+#article-detail .comment {
+  overflow: hidden;
+  list-style: none;
+  padding: 16px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+#article-detail .comment .avatar {
+  float: left;
+  width: 48px;
+}
+
+#article-detail .comment .avatar img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+#article-detail .comment .body {
+  margin-left: 56px;
+}
+
+#article-detail .comment .comment-meta {
+  line-height: 1;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+#article-detail .comment .comment-meta time {
+  margin: 0 6px;
+}

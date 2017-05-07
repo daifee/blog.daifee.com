@@ -1,0 +1,38 @@
+
+<% if (articles.length) { %>
+  <ul class="article-list">
+    <% articles.forEach(function (article) { %>
+      <li>
+        <div class="meta">
+          <div class="author">
+            <a href="/users/<%= article.userName %>"><%= article.user.name %></a>
+          </div>
+          <div class="date">
+            <time><%= helpers.formatDate(article.createdAt) %></time>
+          </div>
+          <div class="date">
+            <a href="/articles/<%= article.id %>#comments"><%= article.commentNum %> Comments</a>
+          </div>
+        </div>
+        <h3>
+          <a href="/articles/<%= article.id %>">
+            <%= article.title %>
+          </a>
+        </h3>
+        <p><%= helpers.listArticleContent(article.content) %></p>
+        <div class="action">
+          <a href="/articles/<%= article.id %>">继续阅读 »</a>
+
+          <% if (_user.id == article.userId) { %>
+            <span class="self">
+              <a href="/articles/<%= article.id %>?_method=delete">删除</a>
+              <a href="/articles/<%= article.id %>/edit">编辑</a>
+            </span>
+          <% } %>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+<% } else { %>
+  <p>没有文章...</p>
+<% } %>

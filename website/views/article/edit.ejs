@@ -1,0 +1,29 @@
+<%- include('../partials/header') -%>
+
+
+<% if (article.id) { %>
+<form action="/articles/<%= article.id %>?_method=PATCH" method="post" class="form-signin" role="form">
+<% } else { %>
+<form action="/articles" method="post" class="form-signin" role="form">
+<% } %>
+
+  <% if (errorMessage) { %>
+    <div class="alert alert-warning" role="alert">
+      <%= errorMessage %>
+    </div>
+  <% } %>
+
+  <div class="form-group">
+    <input class="form-control" type="text" name="title" value="<%= article.title %>" placeholder="title">
+  </div>
+
+  <div id="editormd" class="form-group">
+    <textarea name="content" style="display:none;"><%= article.content %></textarea>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">提 交</button>
+  </div>
+</form>
+<%- include('../partials/footer') -%>
+

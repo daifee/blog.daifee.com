@@ -1,0 +1,11 @@
+<nav>
+  <ul class="pager">
+    <% if (link.prev) { %>
+      <li><a href="<%= link.prev %>">上一页</a></li>
+    <% } %>
+
+    <% if (link.next) { %>
+      <li><a href="<%= link.next %>">下一页</a></li>
+    <% } %>
+  </ul>
+</nav>

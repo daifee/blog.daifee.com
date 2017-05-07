@@ -1,0 +1,19 @@
+<%- include('partials/header') -%>
+
+<% if (errorMessage) { %>
+  <div class="alert alert-warning" role="alert">
+    <%= errorMessage %>
+  </div>
+<% } %>
+
+<form action="/login" method="post" id="login" class="form-signin" role="form">
+  <input type="hidden"" name="referer" value="<%= referer %>">
+
+  <h2>登 录</h2>
+
+  <input name="name" type="text" class="form-control" placeholder="用户名" required autofocus>
+  <input name="password" type="password" class="form-control" placeholder="密码" required>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
+</form>
+
+<%- include('partials/footer') -%>

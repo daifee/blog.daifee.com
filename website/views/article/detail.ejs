@@ -1,0 +1,93 @@
+<%- include('../partials/header') -%>
+
+<div class="row" id="article-detail">
+  <div class="col-sm-3">
+    <%- include('../partials/user-side', {user: user}) %>
+  </div>
+
+  <div class="col-sm-9">
+
+    <div class="content">
+      <div class="meta">
+        <div>
+          <time><%= helpers.formatDate(article.createdAt) %></time>
+        </div>
+        <div>
+          <a href="#comments"><%= article.commentNum %> Comments</a>
+        </div>
+        <% if (_user.id == article.userId) { %>
+          <div>
+            <a href="/articles/<%= article.id %>?_method=delete">删除</a>
+            |
+            <a href="/articles/<%= article.id %>/edit">编辑</a>
+          </div>
+        <% } %>
+      </div>
+
+      <h1><%= article.title %></h1>
+
+      <div id="content-markdown">
+        <textarea style="display:none;"><%- article.content %></textarea>
+      </div>
+    </div>
+
+    <div class="comments">
+      <a id="comments" href="#comments">
+        <%= article.commentNum %> Comments
+      </a>
+      <hr>
+
+      <form action="/comments" method="post">
+        <input type="hidden" name="articleId" value="<%= article.id %>">
+
+        <% if (errorMessage) { %>
+          <div class="alert alert-warning" role="alert">
+            <%= errorMessage %>
+          </div>
+        <% } %>
+
+        <div class="form-group">
+          <textarea name="content" class="form-control" rows="2" placeholder="发表评论"></textarea>
+        </div>
+
+        <div class="form-group">
+          <button class="form-control btn-primary" type="submit">提 交</button>
+        </div>
+      </form>
+
+      <% if (comments.length) { %>
+        <ul>
+          <% comments.forEach(function (comment) { %>
+            <li class="comment">
+              <div class="avatar">
+                <a href="/users/<%= comment.user.name %>">
+                  <img src="<%= comment.user.avatar %>" alt="头像">
+                </a>
+              </div>
+              <div class="body">
+                <div class="comment-meta">
+                  <a href="/users/<%= comment.user.name %>">
+                    <%= comment.user.name %>
+                  </a>
+
+                  <time><%= helpers.formatDate(article.createdAt) %></time>
+
+                  <% if (_user.id == comment.userId) { %>
+                    <a class="delete" href="/comments/<%= comment.id %>?_method=DELETE">删除</a>
+                  <% } %>
+                </div>
+                <div class="content"><%= comment.content %></div>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p>没有评论...</p>
+      <% } %>
+
+      <%- include('../partials/pagination') %>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') -%>

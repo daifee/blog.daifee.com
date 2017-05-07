@@ -1,0 +1,47 @@
+{
+  "name": "blog.daifee.com",
+  "version": "1.0.0",
+  "description": "博客程序",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -t 10000 -r ./test/setup.js --recursive ./test",
+    "test:debug": "mocha debug -t 10000 -r ./test/setup.js --recursive ./test",
+    "test:watch": "mocha --watch -t 10000 -r ./test/setup.js --recursive ./test",
+    "lint": "eslint ./api"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.daifee.com:daifee/blog.daifee.com.git"
+  },
+  "keywords": [
+    "博客",
+    "nodejs",
+    "mongodb"
+  ],
+  "author": "daifee <daifee@daifee.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "fecha": "^2.3.0",
+    "method-override": "^2.3.7",
+    "mongoose": "^4.7.6",
+    "morgan": "^1.8.1",
+    "superagent": "^3.5.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.16.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.2",
+    "eslint-plugin-standard": "^2.0.1",
+    "mocha": "^3.2.0",
+    "node-mocks-http": "^1.6.1",
+    "superagent-no-cache": "^0.1.0",
+    "supertest": "^3.0.0"
+  }
+}

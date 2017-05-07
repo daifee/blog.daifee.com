@@ -1,0 +1,27 @@
+<%- include('../partials/header') -%>
+
+<div class="row">
+  <div class="col-sm-3">
+    <%- include('../partials/user-side', {user: user}) %>
+  </div>
+
+  <div class="col-sm-9">
+    <% if (locals.errorMessage) { %>
+      <div class="alert alert-warning" role="alert">
+        <%= errorMessage %>
+      </div>
+    <% } %>
+
+    <% if (locals.successMessage) { %>
+      <div class="alert alert-success" role="alert">
+        <%= successMessage %>
+      </div>
+    <% } %>
+
+    <%- include('../partials/article-list', {articles: articles}) %>
+
+    <%- include('../partials/pagination') %>
+  </div>
+</div>
+
+<%- include('../partials/footer') -%>

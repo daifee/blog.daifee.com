@@ -1,0 +1,22 @@
+
+
+<div class="user-side">
+  <a href="/users/<%= user.name %>" title="<%= user.name %>">
+    <img src="<%= user.avatar %>" alt="<%= user.name %>">
+  </a>
+  <h1><%= user.name %></h1>
+  <ul>
+    <li>
+      <span class="glyphicon glyphicon-envelope"></span>
+      <%= user.email %>
+    </li>
+    <li>
+      <span class="glyphicon glyphicon-time"></span>
+      <%= helpers.formatDate(user.createdAt) %>
+    </li>
+    <li>
+      <span class="glyphicon glyphicon-flag"></span>
+      <%= user.articleNum %> Articles
+    </li>
+  </ul>
+</div>
