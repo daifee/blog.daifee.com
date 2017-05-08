@@ -2,27 +2,34 @@
 
 
 <% if (article.id) { %>
-<form action="/articles/<%= article.id %>?_method=PATCH" method="post" class="form-signin" role="form">
+<form id="article-edit" class="form-horizontal container" method="post" role="form" action="/articles/<%= article.id %>?_method=PATCH">
 <% } else { %>
-<form action="/articles" method="post" class="form-signin" role="form">
+<form id="article-edit" class="form-horizontal container" method="post" role="form" action="/articles">
 <% } %>
 
   <% if (errorMessage) { %>
-    <div class="alert alert-warning" role="alert">
-      <%= errorMessage %>
+    <div class="from-group">
+      <div class="alert alert-warning" role="alert">
+        <%= errorMessage %>
+      </div>
     </div>
   <% } %>
 
   <div class="form-group">
-    <input class="form-control" type="text" name="title" value="<%= article.title %>" placeholder="title">
-  </div>
-
-  <div id="editormd" class="form-group">
-    <textarea name="content" style="display:none;"><%= article.content %></textarea>
+    <div class="col-xs-8">
+      <input class="form-control" type="text" name="title" value="<%= article.title %>" placeholder="请输入标题">
+    </div>
+    <div class="col-xs-4">
+      <button class="btn btn-primary btn-block" type="submit">提 交</button>
+    </div>
   </div>
 
   <div class="form-group">
-    <button class="btn btn-lg btn-primary btn-block" type="submit">提 交</button>
+    <div class="col-xs-12">
+      <div id="editormd" >
+        <textarea name="content" style="display:none;"><%= article.content %></textarea>
+      </div>
+    </div>
   </div>
 </form>
 <%- include('../partials/footer') -%>
