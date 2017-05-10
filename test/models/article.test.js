@@ -75,7 +75,7 @@ describe('models/article.test.js', function () {
 
   it('检测Schema的options', function () {
     expect(_OPTIONS).to.have.property('timestamps', true);
-    expect(_OPTIONS.toJSON).to.deep.equal({virtuals: true});
+    expect(_OPTIONS.toJSON).to.deep.equal({virtuals: true, getters: true});
   });
 
 

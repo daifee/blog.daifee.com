@@ -55,14 +55,21 @@ const DEFINITION = {
 };
 const OPTIONS = {
   timestamps: true,
-  toJSON: {virtuals: true}
+  toJSON: {virtuals: true, getters: true}
 };
 
 const schema = new Schema(DEFINITION, OPTIONS);
 
 
-schema.methods.setHTML = function () {
-  this.html = marked(this.content);
+schema.methods.setHTML = function (content) {
+  // Model methods 用法
+  // else
+  // instance methods 用法
+  if (content) {
+    return marked(content);
+  } else {
+    this.html = marked(this.content);
+  }
 };
 
 const Article = mongoose.model('Article', schema);

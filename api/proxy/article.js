@@ -34,17 +34,22 @@ exports.deleteByUserId = function (userId) {
 };
 
 // 通过ID查找文章
-exports.findOneById = function (id) {
+exports.findOneById = function (id, options = {}) {
   return Article.findOne({
     '$and': [
       {_id: id},
       {status: {'$ne': 'deleted'}}
     ]
-  }).then(associateUser);
+  }).then(function (article) {
+    // 渲染content，并复制给html字段
+    options.html && article.setHTML();
+
+    return associateUser(article);
+  });
 };
 
 // 查找文章（分页）
-exports.find = function (page = 1, perPage = 20, selector = {}) {
+exports.find = function (page = 1, perPage = 20, selector = {}, options = {}) {
   let queryOptions = generatePaginationQueryOptions(page, perPage);
   Object.assign(queryOptions, {
     sort: {createdAt: -1}
@@ -57,11 +62,19 @@ exports.find = function (page = 1, perPage = 20, selector = {}) {
     ]
   };
 
-  return Article.find(selector, {}, queryOptions).then(associateUser);
+  return Article.find(selector, {}, queryOptions).then(function (articles) {
+    if (options.html) {
+      articles = articles.map(function (article) {
+        article.setHTML();
+        return article;
+      });
+    }
+    return associateUser(articles);
+  });
 };
 
 // 通过用户ID查找文章（分页）
-exports.findByUserId = function (userId, page = 1, perPage = 20) {
+exports.findByUserId = function (userId, page = 1, perPage = 20, options = {}) {
   return exports.find(page, perPage, {userId});
 };
 

@@ -119,8 +119,21 @@ describe('proxy/article.js', function () {
             'user',
             'content',
             'createdAt',
-            'status'
+            'status',
+            'html',
+            'introduction'
           ]);
+          expect(article.html).to.equal('');
+          done();
+        });
+      }).catch(done);
+    });
+
+    it('文章已经渲染了HTML', function (done) {
+      createArticle().then(function (article) {
+        return proxyArticle.findOneById(article.id, {html: true}).then(function (article) {
+          expect(article).to.be.ok;
+          expect(article.html).to.not.equal('');
           done();
         });
       }).catch(done);
