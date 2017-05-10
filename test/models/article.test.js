@@ -5,7 +5,7 @@ const Article = require('../../api/models/article');
 const {_DEFINITION, _OPTIONS} = Article;
 const mongoose = require('mongoose');
 const {ObjectId} = mongoose.Schema;
-
+const {objectDeepEqual} = require('../helper');
 
 describe('models/article.test.js', function () {
   it('模块返回model构造函数', function () {
@@ -13,7 +13,7 @@ describe('models/article.test.js', function () {
   });
 
   it('检测Schema的definition', function () {
-    expect(_DEFINITION).to.be.deep.equal({
+    const definition = {
       // 关联用户模型数据
       userId: {
         type: ObjectId,
@@ -34,6 +34,19 @@ describe('models/article.test.js', function () {
         type: String,
         required: [true, '内容不能为空']
       },
+      // 内容（HTML）
+      html: {
+        type: String,
+        default: ''
+      },
+      // 导语（content前140个字符）
+      introduction: {
+        type: String,
+        get: function () {
+          let content = this.content;
+          return content ? content.substring(0, 140) : '';
+        }
+      },
       // 状态
       status: {
         type: String,
@@ -46,11 +59,34 @@ describe('models/article.test.js', function () {
         type: Number,
         default: 0
       }
+    };
+
+    objectDeepEqual(_DEFINITION, definition, function (value1, value2) {
+      if (typeof value1 === 'function' && typeof value1 === 'function') {
+        // 函数体代码完全相同
+        value1 = value1.toString().replace(/\s/g, '');
+        value2 = value2.toString().replace(/\s/g, '');
+        expect(value1).to.equal(value2);
+      } else {
+        expect(value1).to.equal(value2);
+      }
     });
   });
 
   it('检测Schema的options', function () {
     expect(_OPTIONS).to.have.property('timestamps', true);
     expect(_OPTIONS.toJSON).to.deep.equal({virtuals: true});
+  });
+
+
+  it('.setHTML()', function () {
+    let article = new Article({
+      content: '# H1\npppp\n## H2\npppp'
+    });
+
+    expect(article.html).to.equal('');
+    article.setHTML();
+    console.log(article.html);
+    expect(article.html).to.equal('<h1 id="h1">H1</h1>\n<p>pppp</p>\n<h2 id="h2">H2</h2>\n<p>pppp</p>\n');
   });
 });

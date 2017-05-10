@@ -4,6 +4,7 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 const {ObjectId} = Schema;
+const marked = require('marked');
 
 const DEFINITION = {
   // 关联用户模型数据
@@ -26,6 +27,19 @@ const DEFINITION = {
     type: String,
     required: [true, '内容不能为空']
   },
+  // 内容（HTML）
+  html: {
+    type: String,
+    default: ''
+  },
+  // 导语（content前140个字符）
+  introduction: {
+    type: String,
+    get: function () {
+      let content = this.content;
+      return content ? content.substring(0, 140) : '';
+    }
+  },
   // 状态
   status: {
     type: String,
@@ -46,6 +60,10 @@ const OPTIONS = {
 
 const schema = new Schema(DEFINITION, OPTIONS);
 
+
+schema.methods.setHTML = function () {
+  this.html = marked(this.content);
+};
 
 const Article = mongoose.model('Article', schema);
 
