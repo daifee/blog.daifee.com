@@ -26,6 +26,6 @@ const logFileStream = fs.createWriteStream(logFile, {flags: 'a'});
  * * 响应状态
  * * 响应速度
  */
-module.exports = morgan(':date[iso]|:http-version|:url|:method|:user-agent|:status|:response-time[digits]', {stream: logFileStream});
+module.exports = morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" :response-time[digits]', {stream: logFileStream});
 
 
