@@ -62,7 +62,7 @@ exports.renderDetail = function (req, res, next) {
   let page = parseNumber(req.query.page, 1);
   let perPage = parseNumber(req.query.per_page, 10);
 
-  proxyArticle.findOneById(id)
+  proxyArticle.findOneById(id, '1')
   .then(function (article) {
     if (!article) {
       next();
@@ -91,13 +91,7 @@ exports.renderDetail = function (req, res, next) {
           next: nextPage,
           prev: prevPage
         },
-        styles: ['/static/js/editor/css/editormd.preview.min.css'],
-        scripts: [
-          '/static/js/editor/editormd.min.js',
-          '/static/js/editor/lib/marked.min.js',
-          '/static/js/editor/lib/prettify.min.js',
-          '/static/js/article-detail.js'
-        ]
+        styles: ['/static/js/editor/css/editormd.preview.min.css']
       });
     });
   })

@@ -35,6 +35,10 @@ body {
 /**
  * user-side
  */
+.user-side {
+  overflow: hidden;
+}
+
 .user-side img {
   width: 100%;
   max-width: 300px;

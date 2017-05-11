@@ -21,8 +21,8 @@ exports.updateOneById = function (article, token) {
 };
 
 // 通过ID查找文章
-exports.findOneById = function (id) {
-  let promise = utils.get(`/api/articles/${id}`);
+exports.findOneById = function (id, render) {
+  let promise = utils.get(`/api/articles/${id}`).query({render});
 
   return utils.proccessResponse(promise);
 };

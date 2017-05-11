@@ -26,8 +26,8 @@
 
       <h1><%= article.title %></h1>
 
-      <div id="content-markdown">
-        <textarea style="display:none;"><%- article.content %></textarea>
+      <div id="content-markdown markdown-body editormd-preview-container">
+        <%- article.content %>
       </div>
     </div>
 

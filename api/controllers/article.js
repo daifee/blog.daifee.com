@@ -26,7 +26,8 @@ exports.create = function (req, res, next) {
 
 exports.getOneById = function (req, res, next) {
   let id = req.params.id;
-  let promise = proxyArticle.findOneById(id);
+  let render = req.query.render === '1';
+  let promise = proxyArticle.findOneById(id, {render});
 
   output(promise, res, next);
 };
