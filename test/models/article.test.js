@@ -34,11 +34,6 @@ describe('models/article.test.js', function () {
         type: String,
         required: [true, '内容不能为空']
       },
-      // 内容（HTML）
-      html: {
-        type: String,
-        default: ''
-      },
       // 导语（content前140个字符）
       introduction: {
         type: String,
@@ -79,14 +74,12 @@ describe('models/article.test.js', function () {
   });
 
 
-  it('.setHTML()', function () {
+  it('.renderContent()', function () {
     let article = new Article({
       content: '# H1\npppp\n## H2\npppp'
     });
 
-    expect(article.html).to.equal('');
-    article.setHTML();
-    console.log(article.html);
-    expect(article.html).to.equal('<h1 id="h1">H1</h1>\n<p>pppp</p>\n<h2 id="h2">H2</h2>\n<p>pppp</p>\n');
+    article.content = Article.renderContent(article.content);
+    expect(article.content).to.equal('<h1 id="h1">H1</h1>\n<p>pppp</p>\n<h2 id="h2">H2</h2>\n<p>pppp</p>\n');
   });
 });

@@ -28,7 +28,9 @@ exports.toJSON = function (document) {
 
 
 exports.associateUser = function (document) {
-  if (!document) return document;
+  if (!document) {
+    return Promise.resolve(document);
+  }
 
   document = exports.toJSON(document);
 

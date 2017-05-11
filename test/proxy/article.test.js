@@ -120,10 +120,9 @@ describe('proxy/article.js', function () {
             'content',
             'createdAt',
             'status',
-            'html',
             'introduction'
           ]);
-          expect(article.html).to.equal('');
+          expect(article.html).to.not.equal('');
           done();
         });
       }).catch(done);

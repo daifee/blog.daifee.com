@@ -27,11 +27,6 @@ const DEFINITION = {
     type: String,
     required: [true, '内容不能为空']
   },
-  // 内容（HTML）
-  html: {
-    type: String,
-    default: ''
-  },
   // 导语（content前140个字符）
   introduction: {
     type: String,
@@ -61,15 +56,8 @@ const OPTIONS = {
 const schema = new Schema(DEFINITION, OPTIONS);
 
 
-schema.methods.setHTML = function (content) {
-  // Model methods 用法
-  // else
-  // instance methods 用法
-  if (content) {
-    return marked(content);
-  } else {
-    this.html = marked(this.content);
-  }
+schema.statics.renderContent = function (content) {
+  return marked(content);
 };
 
 const Article = mongoose.model('Article', schema);

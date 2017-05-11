@@ -39,8 +39,6 @@ describe('proxy/hepler', function () {
   });
 
   it('将document对象关联user对象，并调用toJSON() .associateUser(document)', function (done) {
-    expect(proxyHelper.associateUser(null)).to.equal(null);
-
     createArticle().then(function (article) {
       return proxyHelper.associateUser(article).then(function (article) {
         expect(article).to.be.ok;
@@ -48,6 +46,13 @@ describe('proxy/hepler', function () {
         expect(article.user).to.be.ok;
         done();
       });
+    }).catch(done);
+  });
+
+  it('.associateUser(null)', function (done) {
+    proxyHelper.associateUser(null).then(function (value) {
+      expect(value).to.equal(null);
+      done();
     }).catch(done);
   });
 

@@ -35,16 +35,23 @@ exports.deleteByUserId = function (userId) {
 
 // 通过ID查找文章
 exports.findOneById = function (id, options = {}) {
+  options = Object.assign({
+    content: true
+  }, options);
+
   return Article.findOne({
     '$and': [
       {_id: id},
       {status: {'$ne': 'deleted'}}
     ]
   }).then(function (article) {
-    // 渲染content，并复制给html字段
-    options.html && article.setHTML();
+    return associateUser(article).then(function (article) {
+      if (!article) return article;
 
-    return associateUser(article);
+      article = preprocess(article, options);
+
+      return article;
+    });
   });
 };
 
@@ -63,13 +70,13 @@ exports.find = function (page = 1, perPage = 20, selector = {}, options = {}) {
   };
 
   return Article.find(selector, {}, queryOptions).then(function (articles) {
-    if (options.html) {
+    return associateUser(articles).then(function (articles) {
       articles = articles.map(function (article) {
-        article.setHTML();
-        return article;
+        return preprocess(article, options);
       });
-    }
-    return associateUser(articles);
+
+      return articles;
+    });
   });
 };
 
@@ -93,3 +100,28 @@ exports.reduceCommentNum = function (id, num = -1) {
 exports.increaseViews = function (id, num = 1) {
   return exports.updateOneById(id, {'$inc': {views: num}});
 };
+
+
+/**
+ * 预处理article文档
+ * options.render  渲染content
+ * options.content  是否返回content
+ */
+function preprocess(article, options = {}) {
+  if (!article) return article;
+
+  options = Object.assign({
+    render: false,
+    content: false
+  }, options);
+
+  if (options.render) {
+    article.content = Article.renderContent(article.content);
+  }
+
+  if (!options.content) {
+    delete article.content;
+  }
+
+  return article;
+}
