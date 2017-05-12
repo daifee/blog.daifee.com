@@ -1,34 +1,9 @@
 # 博客程序
 
+https://blog.daifee.com
+
 ## THINKING
 
-### 项目结构
-
-```text
-project/
-  |-- api/ API服务的控制器
-  |     |-- router.js 定义API程序
-  |     |-- ... 控制器
-  |-- config/ 配置
-  |-- logs/  日志文件
-  |-- middlewares/  中间件
-  |     |-- accessLog.js  日志
-  |     |-- authorize.js  权限检测
-  |     |-- crossDomain.js  设置跨域响应
-  |     |-- respondContentType.js  设置响应体类型
-  |-- models/  定义数据模型
-  |     |-- article.js  文章模型
-  |     |-- comment.js  评论模型
-  |     |-- index.js  入口，初始化所有模型，连接mongodb
-  |     |-- pagination.js  分页模型
-  |     |-- user.js  用户模型
-  |-- proxy/  多有数据接口。不在逻辑代码中直接请求数据，必须通过这里的接口。
-  |-- scripts/  一些独立的脚本
-  |-- test/  测试代码
-  |-- utils/  自己写的一些工具模块
-  |-- CustomError.js  自定义错误类
-  |-- index.js  程序入口
-```
 
 ### 逻辑分层
 
@@ -97,25 +72,5 @@ project/
 
 * `mongoose object`转化为`plain object`应该用`toObject`,不要使用`toJSON`。
 * 请求接口不存在，返回404；请求资源为空，返回`null`或`[]`
-
-## controllers 控制器层
-
-* 输入&输出控制器
-
-## models 模型层
-
-* 定义Mongoose数据模型
-
-## proxy 数据代理层
-
-* 封装数据接口，从MongoDB、MySQL或其他数据源接口请求数据，并返回`plain object`
-* 处理数据关联问题
-* 解析并二次封装错误
-
-
-## api
-
-提供rest api，参考[github api](developer.github.com/v3)。
-
 
 
