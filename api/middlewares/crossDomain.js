@@ -12,7 +12,7 @@ module.exports = function (req, res, next) {
     res.set('Access-Control-Allow-Origin', '*');
 
     let method = req.method;
-    let requestHeaders = req.get('Access-control-Request-Method');
+    let requestHeaders = req.get('Access-Control-Request-Headers');
 
     // 响应preflight请求
     if (method === 'OPTIONS' && requestHeaders) {

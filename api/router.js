@@ -44,20 +44,18 @@ router.delete('/users/:userId', authorize('administrator'), controllersUser.dele
 /**
  * articles
  */
-router.get('/users/:userId/articles', controllersArticle.getListByUserId);
 // 创建文章
 router.post('/users/:userId/articles', authorize('self'), controllersArticle.create);
-// // 获取一篇文章
-// router.get('/users/:userId/articles/:id', controllersArticle.getOneById);
 // 更新文章
 router.patch('/users/:userId/articles/:id', authorize('self'), controllersArticle.update);
 // 删除文章
 router.delete('/users/:userId/articles/:id', authorize('self'), controllersArticle.delete);
-// 所有文章，分页
-router.get('/articles', controllersArticle.getList);
 // 获取一篇文章
 router.get('/articles/:id', controllersArticle.getOneById);
-
+// 所有文章，分页
+router.get('/articles', controllersArticle.getList);
+// 某用户的所有文章，分页
+router.get('/users/:userId/articles', controllersArticle.getListByUserId);
 
 /**
  * comments
