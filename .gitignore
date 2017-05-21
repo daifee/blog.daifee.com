@@ -50,3 +50,4 @@ jspm_packages
 
 # 自定义
 secret.json
+.well-known
