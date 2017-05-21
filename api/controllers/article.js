@@ -35,7 +35,7 @@ exports.getOneById = function (req, res, next) {
 
 exports.update = function (req, res, next) {
   let id = req.params.id;
-  let articleData = copyObject(req.body, ['id', 'userId', 'commentNum', 'views']);
+  let articleData = copyObject(req.body, ['id', 'userId', 'commentNum', 'views', 'createdAt', 'updatedAt']);
 
   let article = new Article(articleData);
   let err = article.validateSync(Object.keys(articleData));

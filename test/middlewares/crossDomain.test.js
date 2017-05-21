@@ -2,7 +2,7 @@ const {expect} = require('chai');
 const mocksHttp = require('node-mocks-http');
 const crossDomain = require('../../api/middlewares/crossDomain');
 
-describe.only('middlewares/crossDomain.js', function () {
+describe('middlewares/crossDomain.js', function () {
   it('允许所有请求域', function () {
     let request = mocksHttp.createRequest({
       method: 'POST',

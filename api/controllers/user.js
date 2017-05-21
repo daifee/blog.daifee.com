@@ -73,7 +73,9 @@ exports.update = function (req, res, next) {
     'salt',
     'password',
     'token',
-    'status'
+    'status',
+    'createdAt',
+    'updatedAt'
   ]);
   let promise;
   let user = new User(userData);
