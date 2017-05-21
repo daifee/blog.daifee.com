@@ -2,7 +2,7 @@ const {expect} = require('chai');
 const mocksHttp = require('node-mocks-http');
 const crossDomain = require('../../api/middlewares/crossDomain');
 
-describe('middlewares/crossDomain.js', function () {
+describe.only('middlewares/crossDomain.js', function () {
   it('允许所有请求域', function () {
     let request = mocksHttp.createRequest({
       method: 'POST',
@@ -27,7 +27,7 @@ describe('middlewares/crossDomain.js', function () {
       headers: {
         'Origin': 'www.google.com',
         'Access-control-Request-Method': 'GET, PUT, DELETE',
-        'Access-Control-Allow-Headers': 'X-Token'
+        'Access-Control-Request-Headers': 'X-Token'
       }
     });
     let response = mocksHttp.createResponse();
@@ -42,7 +42,7 @@ describe('middlewares/crossDomain.js', function () {
     expect(response.getHeader('Access-Control-Allow-Methods'))
       .to.equal('GET,POST,PUT,DELETE,PATCH');
     expect(response.getHeader('Access-Control-Allow-Headers'))
-      .to.equal('GET, PUT, DELETE');
+      .to.equal('X-Token');
     expect(response.getHeader('Access-Control-Max-Age'))
       .to.equal('86400');
   });
