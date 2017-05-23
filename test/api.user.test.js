@@ -141,6 +141,48 @@ describe('restful API user部分', function () {
   });
 
 
+  describe('获取所有用户 get /users/search', function () {
+    let _administrator;
+
+    before(function (done) {
+      createUsers(5).then(function () {
+        done();
+      }).catch(done);
+    });
+
+    before(function (done) {
+      let userData = generateUserData({role: 'administrator'});
+      createUser(userData).then(function (user) {
+        _administrator = user;
+        done();
+      }).catch(done);
+    });
+
+    it('获取所有用户，默认 page=1 get /api/users/search', function (done) {
+      agent
+        .get('/api/users/search')
+        .set('X-Token', _administrator.token)
+        .query({
+          role: 'user',
+          status: 'normal',
+          page: 1,
+          per_page: 5
+        })
+        .expect('Content-Type', /application\/json/)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body).to.be.an('array');
+            expect(res.body.length).to.equal(5);
+            done();
+          }
+        });
+    });
+  });
+
+
   describe('通过用户名获取一位用户 get /users/:name', function () {
     let _user;
 

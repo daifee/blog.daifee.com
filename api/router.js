@@ -31,10 +31,12 @@ router.use(crossDomain);
 router.post('/', controllersUser.authorize);
 // get 所有用户，分页
 router.get('/users', controllersUser.getList);
-// get 一个用户
-router.get('/users/:name', controllersUser.getOneByName);
 // post 创建用户
 router.post('/users', controllersUser.create);
+// 搜索用户
+router.get('/users/search', authorize('administrator'), controllersUser.search);
+// get 一个用户
+router.get('/users/:name', controllersUser.getOneByName);
 // patch 更新用户
 router.patch('/users/:userId', authorize('self'), controllersUser.update);
 // delete 删除用户

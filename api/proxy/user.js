@@ -85,15 +85,26 @@ exports.findByIds = function (ids) {
 
 // 分页查找
 exports.find = function (page = 1, perPage = 20) {
+  return exports.search(page, perPage, {status: {'$ne': 'deleted'}});
+};
+
+// and查找 name, email, role, status
+exports.search = function (page = 1, perPage = 20, selector = {}) {
   let queryOptions = helper.generatePaginationQueryOptions(page, perPage);
   Object.assign(queryOptions, {
     sort: {createdAt: -1}
   });
 
-  return User.find({
-    status: {'$ne': 'deleted'}
-  }, '-salt -password -token', queryOptions).then(helper.toJSON);
+  let _selector = {};
+  Object.keys(selector).forEach(function (key) {
+    if (['name', 'email', 'role', 'status'].indexOf(key) !== -1) {
+      _selector[key] = selector[key];
+    }
+  });
+
+  return User.find(_selector, '-salt -password -token', queryOptions).then(helper.toJSON);
 };
+
 
 // 增加文章数量
 exports.increaseArticleNum = function (id, num = 1) {

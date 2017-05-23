@@ -339,6 +339,22 @@ describe('proxy/user.js', function () {
     }).catch(done);
   });
 
+
+  it('搜索 .search(page, perPage, selector)', function (done) {
+    createUsers(5).then(function (users) {
+      let p1 = proxyUser.search(1, 5, {role: 'user', status: 'normal'}).then(function (users) {
+        expect(users.length).to.equal(5);
+      });
+      let p2 = proxyUser.search(1, 5, {name: users[0].name}).then(function (users) {
+        expect(users.length).to.equal(1);
+      });
+
+      return Promise.all([p1, p2]).then(function () {
+        done();
+      });
+    }).catch(done);
+  });
+
   it('增加文章阅读数量 increaseArticleNum(id, num)', function (done) {
     createUser().then(function (user) {
       return proxyUser.increaseArticleNum(user.id).then(function (user) {

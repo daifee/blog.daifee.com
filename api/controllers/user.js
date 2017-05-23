@@ -22,6 +22,14 @@ exports.authorize = function (req, res, next) {
 };
 
 
+// 查找 name, email, role, status
+exports.search = function (req, res, next) {
+  let pagination = new Pagination(req.query);
+  let promise = proxyUser.search(pagination.page, pagination.perPage, req.query);
+
+  output(promise, res, next);
+};
+
 // 所有用户
 exports.getList = function (req, res, next) {
   let pagination = new Pagination(req.query);
