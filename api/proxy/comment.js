@@ -45,21 +45,30 @@ exports.findOneById = function (id) {
   }).then(associateUser);
 };
 
-// 查找评论（分页）
-exports.find = function (page = 1, perPage = 20, selector = {}) {
+// 搜索 支持：and查询（userId, articleId, status）
+exports.search = function (page = 1, perPage = 20, selector = {}) {
   let queryOptions = generatePaginationQueryOptions(page, perPage);
   Object.assign(queryOptions, {
     sort: {createdAt: -1}
   });
 
-  selector = {
-    '$and': [
-      selector,
-      {status: {'$ne': 'deleted'}}
-    ]
-  };
+  let _selector = {};
+  Object.keys(selector).forEach(function (key) {
+    if (['userId', 'articleId', 'status'].indexOf(key) !== -1) {
+      _selector[key] = selector[key];
+    }
+  });
 
-  return Comment.find(selector, {}, queryOptions).then(associateUser);
+  return Comment.find(_selector, {}, queryOptions).then(associateUser);
+};
+
+// 查找评论（分页）
+exports.find = function (page, perPage, selector = {}) {
+  selector = Object.assign({}, selector, {
+    status: {'$ne': 'deleted'}
+  });
+
+  return exports.search(page, perPage, selector);
 };
 
 // 查找某用户的评论（分页）
