@@ -56,28 +56,8 @@ exports.findOneById = function (id, options = {}) {
 };
 
 // 查找文章（分页）
-exports.find = function (page = 1, perPage = 20, selector = {}, options = {}) {
-  let queryOptions = generatePaginationQueryOptions(page, perPage);
-  Object.assign(queryOptions, {
-    sort: {createdAt: -1}
-  });
-
-  selector = {
-    '$and': [
-      selector,
-      {status: {'$ne': 'deleted'}}
-    ]
-  };
-
-  return Article.find(selector, {}, queryOptions).then(function (articles) {
-    return associateUser(articles).then(function (articles) {
-      articles = articles.map(function (article) {
-        return preprocess(article, options);
-      });
-
-      return articles;
-    });
-  });
+exports.find = function (page, perPage, options = {}) {
+  return exports.search(page, perPage, {status: {'$ne': 'deleted'}}, options);
 };
 
 
@@ -95,7 +75,7 @@ exports.search = function (page, perPage, selector, options = {}) {
     }
   });
 
-  return Article.find(selector, {}, queryOptions).then(function (articles) {
+  return Article.find(_selector, {}, queryOptions).then(function (articles) {
     return associateUser(articles).then(function (articles) {
       articles = articles.map(function (article) {
         return preprocess(article, options);
@@ -110,7 +90,10 @@ exports.search = function (page, perPage, selector, options = {}) {
 
 // 通过用户ID查找文章（分页）
 exports.findByUserId = function (userId, page = 1, perPage = 20, options = {}) {
-  return exports.find(page, perPage, {userId});
+  return exports.search(page, perPage, {
+    userId: userId,
+    status: {'$ne': 'deleted'}
+  });
 };
 
 
