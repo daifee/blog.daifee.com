@@ -52,10 +52,12 @@ router.post('/users/:userId/articles', authorize('self'), controllersArticle.cre
 router.patch('/users/:userId/articles/:id', authorize('self'), controllersArticle.update);
 // 删除文章
 router.delete('/users/:userId/articles/:id', authorize('self'), controllersArticle.delete);
-// 获取一篇文章
-router.get('/articles/:id', controllersArticle.getOneById);
 // 所有文章，分页
 router.get('/articles', controllersArticle.getList);
+// 搜索文章
+router.get('/articles/search', authorize('administrator'), controllersArticle.search);
+// 获取一篇文章
+router.get('/articles/:id', controllersArticle.getOneById);
 // 某用户的所有文章，分页
 router.get('/users/:userId/articles', controllersArticle.getListByUserId);
 
@@ -72,6 +74,8 @@ router.delete('/users/:userId/comments/:id', authorize('self'), controllersComme
 router.get('/articles/:articleId/comments', controllersComment.getListByArticleId);
 // 获取所有评论，分页
 router.get('/comments', authorize('administrator'), controllersComment.getList);
+// 搜索评论
+router.get('/comments/search', authorize('administrator'), controllersComment.search);
 // 获取一条评论
 router.get('/comments/:id', controllersComment.getOneById);
 
