@@ -72,3 +72,12 @@ exports.delete = function (req, res, next) {
   let promise = proxyComment.deleteOneById(id);
   output(promise, res, next);
 };
+
+
+
+exports.search = function (req, res, next) {
+  let pagination = new Pagination(req.query);
+  let promise = proxyComment.search(pagination.page, pagination.perPage, req.query);
+
+  output(promise, res, next);
+};

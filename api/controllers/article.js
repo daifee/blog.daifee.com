@@ -77,3 +77,11 @@ exports.getList = function (req, res, next) {
   output(promise, res, next);
 };
 
+
+
+exports.search = function (req, res, next) {
+  let pagination = new Pagination(req.query);
+  let promise = proxyArticle.search(pagination.page, pagination.perPage, req.query);
+
+  output(promise, res, next);
+};
