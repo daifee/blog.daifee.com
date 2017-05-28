@@ -289,20 +289,6 @@ describe('proxy/user.js', function () {
     }).catch(done);
   });
 
-  it('找不到被删除的用户 .findOneByToken, .findOneByName, .findOneById', function (done) {
-    createUser().then(function (user) {
-      return proxyUser.deleteOneById(user.id).then(function () {
-        return Promise.all([
-          proxyUser.findOneById(user.id),
-          proxyUser.findOneByName(user.name),
-          proxyUser.findOneByToken(user.token)
-        ]).then(function (values) {
-          expect(values).to.deep.equal([null, null, null]);
-          done();
-        });
-      });
-    }).catch(done);
-  });
 
   it('通过id查找用户 .findByIds(ids)', function (done) {
     createUsers(5).then(function (users) {
@@ -317,15 +303,7 @@ describe('proxy/user.js', function () {
           return user.id;
         });
         expect(_ids).to.deep.equal(ids);
-
-        // 删除一个用户
-        return proxyUser.deleteOneById(_ids[1]).then(function () {
-          // 传入5个，但只能找到4个用户
-          return proxyUser.findByIds(_ids).then(function (users) {
-            expect(users.length).to.equal(4);
-            done();
-          });
-        });
+        done();
       });
     }).catch(done);
   });

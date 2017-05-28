@@ -75,12 +75,7 @@ exports.findOneById = function (id) {
 
 // 通过id数组查找多个用户 $in
 exports.findByIds = function (ids) {
-  return User.find({
-    '$and': [
-      {_id: {'$in': ids}},
-      {status: {'$ne': 'deleted'}}
-    ]
-  }, '-salt -password -token').then(helper.toJSON);
+  return User.find({_id: {'$in': ids}}, '-salt -password -token').then(helper.toJSON);
 };
 
 // 分页查找
@@ -123,12 +118,6 @@ exports.reduceArticleNum = function (id, num = -1) {
  * @param {object|string} fields 返回的字段
  */
 function findOne(selector = {}, fields = '-salt -password -token') {
-  selector = Object.assign({}, {
-    '$and': [
-      selector,
-      {status: {'$ne': 'deleted'}}
-    ]
-  });
   return User.findOne(selector, fields).then(helper.toJSON);
 }
 
