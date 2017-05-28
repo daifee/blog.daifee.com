@@ -80,6 +80,34 @@ exports.find = function (page = 1, perPage = 20, selector = {}, options = {}) {
   });
 };
 
+
+// 搜索文章，支持 and 查询 userId, title, status
+exports.search = function (page, perPage, selector, options = {}) {
+  let queryOptions = generatePaginationQueryOptions(page, perPage);
+  Object.assign(queryOptions, {
+    sort: {createdAt: -1}
+  });
+
+  let _selector = {};
+  Object.keys(selector).forEach(function (key) {
+    if (['userId', 'title', 'status'].indexOf(key) !== -1) {
+      _selector[key] = selector[key];
+    }
+  });
+
+  return Article.find(selector, {}, queryOptions).then(function (articles) {
+    return associateUser(articles).then(function (articles) {
+      articles = articles.map(function (article) {
+        return preprocess(article, options);
+      });
+
+      return articles;
+    });
+  });
+};
+
+
+
 // 通过用户ID查找文章（分页）
 exports.findByUserId = function (userId, page = 1, perPage = 20, options = {}) {
   return exports.find(page, perPage, {userId});
