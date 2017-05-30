@@ -37,12 +37,7 @@ exports.deleteByUserId = function (userId) {
 
 // 通过ID查找评论
 exports.findOneById = function (id) {
-  return Comment.findOne({
-    '$and': [
-      {_id: id},
-      {status: {'$ne': 'deleted'}}
-    ]
-  }).then(associateUser);
+  return Comment.findOne({_id: id}).then(associateUser);
 };
 
 // 搜索 支持：and查询（userId, articleId, status）

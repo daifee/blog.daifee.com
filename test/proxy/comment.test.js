@@ -128,7 +128,7 @@ describe('proxy/comment.js', function () {
       createComment().then(function (comment) {
         return proxyComment.deleteOneById(comment.id).then(function (comment) {
           return proxyComment.findOneById(comment.id).then(function (comment) {
-            expect(comment).to.not.be.ok;
+            expect(comment.status).to.equal('deleted');
             done();
           });
         });
