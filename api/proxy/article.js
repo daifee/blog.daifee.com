@@ -39,12 +39,7 @@ exports.findOneById = function (id, options = {}) {
     content: true
   }, options);
 
-  return Article.findOne({
-    '$and': [
-      {_id: id},
-      {status: {'$ne': 'deleted'}}
-    ]
-  }).then(function (article) {
+  return Article.findOne({_id: id}).then(function (article) {
     return associateUser(article).then(function (article) {
       if (!article) return article;
 
@@ -91,8 +86,7 @@ exports.search = function (page, perPage, selector, options = {}) {
 // 通过用户ID查找文章（分页）
 exports.findByUserId = function (userId, page = 1, perPage = 20, options = {}) {
   return exports.search(page, perPage, {
-    userId: userId,
-    status: {'$ne': 'deleted'}
+    userId: userId
   });
 };
 

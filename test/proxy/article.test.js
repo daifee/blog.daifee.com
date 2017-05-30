@@ -137,17 +137,6 @@ describe('proxy/article.js', function () {
         });
       }).catch(done);
     });
-
-    it('查找不到已被删除的文章', function (done) {
-      createArticle().then(function (article) {
-        return proxyArticle.deleteOneById(article.id).then(function (article) {
-          return proxyArticle.findOneById(article.id).then(function (article) {
-            expect(article).to.not.be.ok;
-            done();
-          });
-        });
-      }).catch(done);
-    });
   });
 
   it('查找多篇文章，分页 .find(page, perPage)', function (done) {

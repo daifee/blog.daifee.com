@@ -229,7 +229,7 @@ describe('proxy/user.js', function () {
           proxyArticle.findByUserId(user.id),
           proxyComment.findByUserId(user.id)
         ]).then(function (values) {
-          expect(values[0].length).to.equal(0);
+          expect(values[0][0].status).to.equal('deleted');
           expect(values[1].length).to.equal(0);
           done();
         });
