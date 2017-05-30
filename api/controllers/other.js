@@ -36,7 +36,7 @@ exports.error = function (err, req, res, next) {
     stack: err.stack
   };
 
-  if (config.production) {
+  if (config.production && !req.query.__debug) {
     delete body.stack;
   }
 
