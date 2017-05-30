@@ -70,7 +70,7 @@ exports.search = function (page, perPage, selector, options = {}) {
 
   let _selector = {};
   Object.keys(selector).forEach(function (key) {
-    if (['userId', 'title', 'status'].indexOf(key) !== -1 && selector[key]) {
+    if (['_id', 'userId', 'title', 'status'].indexOf(key) !== -1 && selector[key]) {
       _selector[key] = selector[key];
     }
   });

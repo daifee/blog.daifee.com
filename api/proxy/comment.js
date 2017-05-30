@@ -54,7 +54,7 @@ exports.search = function (page = 1, perPage = 20, selector = {}) {
 
   let _selector = {};
   Object.keys(selector).forEach(function (key) {
-    if (['userId', 'articleId', 'status'].indexOf(key) !== -1 && selector[key]) {
+    if (['_id', 'userId', 'articleId', 'status'].indexOf(key) !== -1 && selector[key]) {
       _selector[key] = selector[key];
     }
   });
